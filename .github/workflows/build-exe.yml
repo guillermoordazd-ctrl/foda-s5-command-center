@@ -54,7 +54,7 @@ jobs:
       - name: Compilar instalador con Inno Setup
         # GitHub Actions 'windows-latest' ya tiene Inno Setup preinstalado en la ruta por defecto
         run: |
-          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" instalador_foda_s5.iss
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" instalador_foda_s5.iss
 
       - name: Subir Instalador Generado a Artifacts
         uses: actions/upload-artifact@v4
