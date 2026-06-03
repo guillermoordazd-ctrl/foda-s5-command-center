@@ -25,7 +25,7 @@ echo.
 :: 3. Ejecutar compilador PyInstaller
 echo [SYS] Iniciando proceso de compilacion con PyInstaller...
 echo [SYS] Empaquetando en modo Onefile (un solo ejecutable) y Windowed (sin consola)...
-pyinstaller --clean --noconfirm --onedir --windowed --name="FODA_S5_Command_Center" --icon="my_foda_s5.ico" --exclude-module="tkinter" --exclude-module="unittest" --exclude-module="email" --exclude-module="http" --exclude-module="xml" --exclude-module="pydoc" --additional-hooks-dir="hooks" --add-data "main.py;." --add-data "pdf_utils.py;." --add-data "models.py;." --add-data "database.py;." --add-data "charts.py;." --add-data "nlp_mapper.py;." --add-data "styles.css;." --add-data ".streamlit;.streamlit" run_foda_s5.py
+pyinstaller --clean --noconfirm --onedir --windowed --name="FODA_S5_Command_Center" --icon="my_foda_s5.ico" --exclude-module="tkinter" --exclude-module="unittest" --exclude-module="pydoc" --additional-hooks-dir="hooks" --add-data "main.py;." --add-data "pdf_utils.py;." --add-data "models.py;." --add-data "database.py;." --add-data "charts.py;." --add-data "nlp_mapper.py;." --add-data "styles.css;." --add-data ".streamlit;.streamlit" run_foda_s5.py
 
 echo.
 if %ERRORLEVEL% NEQ 0 (
