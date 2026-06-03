@@ -1,0 +1,9 @@
+{
+    "python.defaultInterpreterPath": "/Users/beto/Desktop/FODA/stratcom_env/bin/python",
+    "python.interpreterPath": "/Users/beto/Desktop/FODA/stratcom_env/bin/python",
+    "python.analysis.venvPath": "/Users/beto/Desktop/FODA",
+    "python.analysis.venv": "stratcom_env",
+    "python.analysis.extraPaths": [
+        "/Users/beto/Desktop/FODA/stratcom_env/lib/python3.13/site-packages"
+    ]
+}

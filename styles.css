@@ -1,0 +1,573 @@
+/* ========== FUENTES ========== */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=JetBrains+Mono:wght@300;600&display=swap');
+
+/* ========== ESTILO GLOBAL & ENRUTAMIENTO DE SCROLL ========== */
+html, body, .stApp {
+    background: radial-gradient(circle at center, #0b1329 0%, #020617 100%) !important;
+}
+.main {
+    background-color: #020617;
+    color: #39FF14;
+    font-family: 'Share Tech Mono', 'JetBrains Mono', monospace;
+}
+.block-container, [data-testid="stAppViewBlockContainer"] {
+    padding-bottom: 3rem !important;
+    padding-left: 3.5rem !important;
+    padding-right: 3.5rem !important;
+}
+
+/* ========== OCULTAR ELEMENTOS POR DEFECTO DE STREAMLIT (DEPLOY, MENU, MUÑECOS, FOOTER) ========== */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+header[data-testid="stHeader"] [data-testid="stAppDeployButton"] {
+    display: none !important;
+}
+header[data-testid="stHeader"] button[id="MainMenu"] {
+    display: none !important;
+}
+header[data-testid="stHeader"] button[data-testid="stSidebarCollapseButton"] {
+    position: fixed !important;
+    top: 60px !important;
+    left: 15px !important;
+    z-index: 10000 !important;
+}
+button[data-testid="stSidebarCollapseButton"] {
+    color: #00f2fe !important;
+    background-color: rgba(2, 6, 23, 0.8) !important;
+    border: 1px solid rgba(0, 255, 255, 0.3) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.2) !important;
+}
+button[data-testid="stSidebarCollapseButton"]:hover {
+    background-color: rgba(0, 255, 255, 0.2) !important;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.4) !important;
+}
+[data-testid="stDecoration"] {
+    visibility: hidden !important;
+    display: none !important;
+    height: 0px !important;
+}
+[data-testid="stStatusWidget"] {
+    visibility: hidden !important;
+    display: none !important;
+    height: 0px !important;
+    width: 0px !important;
+}
+footer {
+    visibility: hidden !important;
+    display: none !important;
+}
+
+/* Ocultar botones de Copy, Ask Google y Ask ChatGPT en excepciones */
+[data-testid="stException"] button, [data-testid="stException"] a {
+    display: none !important;
+}
+
+/* ========== OVERLAY: SCANLINES + REJILLA ========== */
+.hud-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(57, 255, 20, 0.02) 0px,
+        rgba(57, 255, 20, 0.02) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+}
+.hud-overlay::after {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+        linear-gradient(rgba(57, 255, 20, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57, 255, 20, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.4;
+}
+
+/* ========== CABECERA HUD STICKY ========== */
+.hud-header {
+    background: rgba(2, 6, 23, 0.95);
+    backdrop-filter: blur(5px);
+    border-bottom: 2px solid #39FF14;
+    padding: 12px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    color: #39FF14;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    font-size: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: -6rem -3.5rem 2rem -3.5rem;
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.15);
+    box-sizing: border-box;
+}
+.hud-header .left-box {
+    font-weight: 900;
+    text-shadow: 0 0 10px #39FF14;
+    color: #39FF14;
+}
+.hud-header .center-box {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 12px #00f2ff;
+    margin-right: auto;
+}
+.hud-header .right-box {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+#hud-clock {
+    font-family: 'JetBrains Mono', 'Share Tech Mono', monospace !important;
+    font-size: 13px !important;
+    color: #39FF14 !important;
+    border: 1px solid rgba(57, 255, 20, 0.4) !important;
+    background: rgba(2, 6, 23, 0.95) !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    width: 115px !important;
+    text-align: center !important;
+    display: inline-block !important;
+    text-shadow: 0 0 5px #39FF14 !important;
+    box-shadow: inset 0 0 5px rgba(57, 255, 20, 0.2), 0 0 8px rgba(57, 255, 20, 0.15) !important;
+    letter-spacing: normal !important;
+    white-space: nowrap !important;
+}
+.alert-level {
+    color: #ffaa00;
+    text-shadow: 0 0 8px #ffaa00;
+}
+.alert-level.critical {
+    color: #ff0055;
+    text-shadow: 0 0 12px #ff0055;
+}
+.alert-level.normal {
+    color: #39FF14;
+    text-shadow: 0 0 12px #39FF14;
+}
+
+/* ========== CAJAS CONTENEDORAS TÁCTICAS ========== */
+.hud-panel {
+    border: 1px solid rgba(57, 255, 20, 0.3) !important;
+    background: rgba(2, 6, 23, 0.75) !important;
+    padding: 20px !important;
+    border-radius: 4px !important;
+    margin-bottom: 20px !important;
+    box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.05), 0 0 10px rgba(0, 0, 0, 0.5) !important;
+    position: relative;
+}
+div[data-testid="stVerticalBlockBorder-container"] {
+    border: 1px solid rgba(57, 255, 20, 0.3) !important;
+    background: rgba(2, 6, 23, 0.75) !important;
+    padding: 20px !important;
+    border-radius: 4px !important;
+    margin-bottom: 20px !important;
+    box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.05), 0 0 10px rgba(0, 0, 0, 0.5) !important;
+}
+.hud-panel-title {
+    color: #00f2ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+    padding-bottom: 6px;
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.5);
+}
+
+/* ========== LOGS Y NOTAS IA ========== */
+.ia-output-box {
+    border-left: 3px solid #00f2ff;
+    padding: 15px;
+    background: rgba(0, 242, 255, 0.04);
+    text-align: justify;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+    font-family: 'Share Tech Mono', 'JetBrains Mono', monospace;
+    text-shadow: 0 0 3px rgba(0, 242, 255, 0.2);
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+}
+
+/* ========== REPORTE TÁCTICO IA ========== */
+.report-container {
+    background: rgba(2, 6, 23, 0.6);
+    border: 1px solid rgba(0, 242, 255, 0.15);
+    border-radius: 6px;
+    padding: 20px;
+    margin-top: 15px;
+    box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.05);
+}
+.report-section {
+    margin-bottom: 25px;
+}
+.report-section:last-child {
+    margin-bottom: 0;
+}
+.report-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    width: fit-content;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.title-blue {
+    color: #00f2ff !important;
+    border: 1px solid rgba(0, 242, 255, 0.3) !important;
+    border-left: 4px solid #00f2ff !important;
+    background: rgba(0, 242, 255, 0.05) !important;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.15), 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+.title-yellow {
+    color: #ffaa00 !important;
+    border: 1px solid rgba(255, 170, 0, 0.3) !important;
+    border-left: 4px solid #ffaa00 !important;
+    background: rgba(255, 170, 0, 0.05) !important;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.15), 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+.title-red {
+    color: #ff0055 !important;
+    border: 1px solid rgba(255, 0, 85, 0.3) !important;
+    border-left: 4px solid #ff0055 !important;
+    background: rgba(255, 0, 85, 0.05) !important;
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.15), 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+.title-green {
+    color: #39FF14 !important;
+    border: 1px solid rgba(57, 255, 20, 0.3) !important;
+    border-left: 4px solid #39FF14 !important;
+    background: rgba(57, 255, 20, 0.05) !important;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.15), 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+.prose-body {
+    position: relative;
+    padding-left: 5px !important;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 20px !important;
+    line-height: 1.15 !important;
+    text-align: justify;
+    color: #e2e8f0;
+    margin-bottom: 6px !important;
+}
+.list-body ol {
+    list-style: none !important;
+    counter-reset: military-counter;
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+.list-body li {
+    counter-increment: military-counter;
+    position: relative;
+    padding-left: 45px !important;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 20px !important;
+    line-height: 1.15 !important;
+    text-align: justify;
+    color: #e2e8f0;
+    margin-bottom: 6px !important;
+}
+.list-body li::before {
+    position: absolute;
+    left: 5px;
+    top: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px !important;
+    font-weight: bold;
+}
+ol.ol-yellow li::before {
+    content: counter(military-counter, decimal) "." !important;
+    color: #ffaa00 !important;
+    text-shadow: 0 0 4px rgba(255, 170, 0, 0.4);
+}
+ol.ol-red li::before {
+    content: counter(military-counter, decimal) "." !important;
+    color: #ff0055 !important;
+    text-shadow: 0 0 4px rgba(255, 0, 85, 0.4);
+}
+ol.ol-green li::before {
+    content: counter(military-counter, decimal) "." !important;
+    color: #39FF14 !important;
+    text-shadow: 0 0 4px rgba(57, 255, 20, 0.4);
+}
+.report-box-fallback {
+    border-left: 3px solid #00f2ff;
+    padding: 15px;
+    background: rgba(0, 242, 255, 0.04);
+    text-align: justify;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 20px !important;
+    line-height: 1.15 !important;
+    border-radius: 0 4px 4px 0;
+}
+
+/* ========== MEJORA DE ELEMENTOS STREAMLIT ========== */
+h1, h2, h3, h4 {
+    font-family: 'Orbitron', sans-serif !important;
+    color: #39FF14 !important;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+}
+[data-testid="stDataEditor"], [data-testid="stDataFrame"] {
+    background: rgba(2, 6, 23, 0.95) !important;
+    border: 1px solid rgba(57, 255, 20, 0.3) !important;
+    color: #ffffff !important;
+}
+[data-testid="stDataEditor"] thead th {
+    background-color: #0c1524 !important;
+    color: #00f2ff !important;
+    border-bottom: 2px solid #00f2ff !important;
+    text-shadow: 0 0 6px rgba(0, 242, 255, 0.6);
+}
+.stButton > button {
+    background: rgba(2, 6, 23, 0.8) !important;
+    border: 1px solid #39FF14 !important;
+    color: #39FF14 !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+    border-radius: 2px !important;
+    transition: all 0.3s ease !important;
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+    box-shadow: 0 0 5px rgba(57, 255, 20, 0.1);
+}
+.stButton > button:hover {
+    background: #39FF14 !important;
+    color: #020617 !important;
+    box-shadow: 0 0 15px #39FF14;
+    transform: translateY(-1px);
+}
+.stButton > button:active {
+    transform: translateY(1px);
+}
+.stSelectbox div[data-baseweb="select"] {
+    background-color: rgba(2, 6, 23, 0.8) !important;
+    border: 1px solid rgba(57, 255, 20, 0.3) !important;
+    color: #00f2ff !important;
+}
+.stTextInput input {
+    background-color: rgba(2, 6, 23, 0.8) !important;
+    border: 1px solid rgba(57, 255, 20, 0.3) !important;
+    color: #00f2ff !important;
+}
+
+/* Ajuste de pestañas (Tabs) en Streamlit */
+button[data-baseweb="tab"] {
+    font-family: 'Orbitron', sans-serif !important;
+    background-color: transparent !important;
+    color: #64748b !important;
+    border: 1px solid transparent !important;
+    padding: 8px 16px !important;
+    letter-spacing: 1px !important;
+    font-weight: 700 !important;
+}
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #00f2ff !important;
+    border-bottom: 2px solid #00f2ff !important;
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.5) !important;
+}
+
+/* ========== ESTILOS DE BOTÓN DE ENVÍO DE FORMULARIOS (GUARDAR MATRICES) ========== */
+div[data-testid="stFormSubmitButton"] button {
+    background: linear-gradient(90deg, #39FF14 0%, #00f2ff 100%) !important;
+    border: none !important;
+    color: #020617 !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-weight: 900 !important;
+    letter-spacing: 2px !important;
+    border-radius: 4px !important;
+    padding: 12px 30px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3) !important;
+    margin-top: 15px !important;
+    text-shadow: none !important;
+}
+div[data-testid="stFormSubmitButton"] button:hover {
+    background: linear-gradient(90deg, #00f2ff 0%, #39FF14 100%) !important;
+    box-shadow: 0 0 25px rgba(57, 255, 20, 0.6) !important;
+    transform: translateY(-2px) !important;
+}
+div[data-testid="stFormSubmitButton"] button:active {
+    transform: translateY(1px) !important;
+}
+
+/* ========== MANUAL DEL OPERADOR STYLING ========== */
+.manual-container {
+    border: 1px solid rgba(57, 255, 20, 0.3) !important;
+    background: rgba(2, 6, 23, 0.85) !important;
+    padding: 30px !important;
+    border-radius: 6px !important;
+    box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.05), 0 0 15px rgba(0, 0, 0, 0.5) !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    color: #e2e8f0 !important;
+    font-size: 20px !important;
+    line-height: 1.6 !important;
+    text-align: justify !important;
+    margin-bottom: 30px !important;
+}
+.manual-container, .manual-container p, .manual-container li, .manual-bullet {
+    text-align: justify !important;
+}
+.manual-h1 {
+    font-family: 'Orbitron', sans-serif !important;
+    color: #39FF14 !important;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.5) !important;
+    border-bottom: 2px solid #39FF14 !important;
+    padding-bottom: 10px !important;
+    margin-top: 0px !important;
+    margin-bottom: 25px !important;
+    font-size: 28px !important;
+}
+.manual-h2 {
+    font-family: 'Orbitron', sans-serif !important;
+    color: #39FF14 !important;
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.3) !important;
+    margin-top: 30px !important;
+    margin-bottom: 15px !important;
+    border-bottom: 1px dashed rgba(57, 255, 20, 0.3) !important;
+    padding-bottom: 5px !important;
+    font-size: 21px !important;
+}
+.manual-intro {
+    margin-bottom: 15px !important;
+    color: #88a0b0 !important;
+    font-size: 20px !important;
+}
+.manual-item {
+    margin-left: 15px !important;
+    margin-bottom: 10px !important;
+    color: #e2e8f0 !important;
+    font-size: 20px !important;
+    border-left: 2px solid rgba(57, 255, 20, 0.3) !important;
+    padding-left: 10px !important;
+}
+.manual-subitem {
+    margin-left: 35px !important;
+    margin-bottom: 8px !important;
+    color: #cbd5e1 !important;
+    font-size: 18px !important;
+    border-left: 1px solid rgba(0, 242, 255, 0.3) !important;
+    padding-left: 8px !important;
+}
+.manual-subsubitem {
+    margin-left: 55px !important;
+    margin-bottom: 6px !important;
+    color: #94a3b8 !important;
+    font-size: 17px !important;
+    border-left: 1px dashed rgba(226, 232, 240, 0.3) !important;
+    padding-left: 6px !important;
+}
+.manual-bullet {
+    margin-left: 20px !important;
+    margin-bottom: 8px !important;
+    list-style-type: square !important;
+    font-size: 18px !important;
+}
+.manual-container strong {
+    color: #00f2ff !important;
+    text-shadow: 0 0 5px rgba(0, 242, 255, 0.3) !important;
+}
+.manual-container em {
+    color: #39FF14 !important;
+    font-style: italic !important;
+}
+
+/* ========== OPERATOR INFO TACTICAL BOX ========== */
+.operator-info {
+    background: rgba(2, 6, 23, 0.6) !important;
+    border: 1px solid rgba(57, 255, 20, 0.2) !important;
+    padding: 12px 16px !important;
+    border-radius: 4px !important;
+    font-family: 'Share Tech Mono', 'JetBrains Mono', monospace !important;
+    font-size: 14px !important;
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+    box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.05), 0 0 8px rgba(0, 0, 0, 0.4) !important;
+}
+.operator-info .label {
+    color: #88a0b0 !important;
+}
+.operator-info .val {
+    color: #ffffff !important;
+    font-weight: bold !important;
+}
+.operator-info .gravity-rojo {
+    color: #ff0055 !important;
+    text-shadow: 0 0 10px rgba(255, 0, 85, 0.8) !important;
+    font-weight: 900 !important;
+}
+.operator-info .gravity-amarillo {
+    color: #ffaa00 !important;
+    text-shadow: 0 0 10px rgba(255, 170, 0, 0.8) !important;
+    font-weight: 900 !important;
+}
+.operator-info .gravity-verde {
+    color: #39FF14 !important;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.8) !important;
+    font-weight: 900 !important;
+}
+
+/* ========== DESTRUCTIVE HUD BUTTON ========== */
+.btn-destructive {
+    border: 1px solid #ff0055 !important;
+    color: #ff0055 !important;
+    text-shadow: 0 0 5px rgba(255, 0, 85, 0.5) !important;
+    box-shadow: 0 0 5px rgba(255, 0, 85, 0.1) !important;
+}
+.btn-destructive:hover {
+    background: #ff0055 !important;
+    color: #020617 !important;
+    box-shadow: 0 0 15px #ff0055 !important;
+    text-shadow: none !important;
+}
+
+/* ========== TACTICAL DOWNLOAD BUTTON ========== */
+.tactical-download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: rgba(0, 242, 255, 0.1) !important;
+    border: 1px solid #00f2ff !important;
+    color: #00f2ff !important;
+    padding: 10px 20px !important;
+    border-radius: 4px !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    text-shadow: 0 0 5px #00f2ff !important;
+    box-shadow: 0 0 5px rgba(0, 242, 255, 0.2) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+.tactical-download-btn:hover {
+    background: #00f2ff !important;
+    color: #020617 !important;
+    box-shadow: 0 0 15px #00f2ff !important;
+    text-shadow: none !important;
+}
+.tactical-download-btn:active {
+    transform: translateY(1px) !important;
+}
+
+
+

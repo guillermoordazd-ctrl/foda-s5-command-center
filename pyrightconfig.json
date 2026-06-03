@@ -1,0 +1,8 @@
+{
+  "venvPath": "/Users/beto/Desktop/FODA",
+  "venv": "stratcom_env",
+  "extraPaths": [
+    "/Users/beto/Desktop/FODA/stratcom_env/lib/python3.13/site-packages"
+  ],
+  "reportMissingTypeStubs": false
+}

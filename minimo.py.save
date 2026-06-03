@@ -1,0 +1,9 @@
+
+
+cat > minimo.py << 'EOF'
+import streamlit as st
+st.set_page_config(layout="wide")
+st.title("🔧 Prueba de Streamlit")
+st.write("Si ves este mensaje, el entorno funciona correctamente.")
+st.button("Haz clic", help="Botón de prueba")
+EOF
