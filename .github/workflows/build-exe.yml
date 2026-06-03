@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout del código
@@ -54,8 +56,17 @@ jobs:
         run: |
           "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" instalador_foda_s5.iss
 
-      - name: Subir Instalador Generado
+      - name: Subir Instalador Generado a Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Setup_FODA_S5_Command_Center
           path: dist/Setup_FODA_S5_Command_Center.exe
+
+      - name: Publicar directo en GitHub Releases
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: "Versión 1.0.${{ github.run_number }}"
+          body: "Ejecutable automatizado FODA S5 Command Center (Modo Optimizado --onedir)"
+          files: dist/Setup_FODA_S5_Command_Center.exe
