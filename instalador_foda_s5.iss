@@ -73,7 +73,7 @@ begin
                 '¿Desea abrir el sitio web de Ollama para descargarlo e instalarlo ahora?', 
                 mbConfirmation, MB_YESNO) = IDYES then
       begin
-        ShellExec('open', 'https://ollama.com/download', '', '', SW_SHOWNORMAL, errNoWait, ErrorCode);
+        ShellExec('open', 'https://ollama.com/download', '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
       end;
     end;
   end;
