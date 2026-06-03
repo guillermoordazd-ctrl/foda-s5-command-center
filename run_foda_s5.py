@@ -240,6 +240,8 @@ def launch_app():
         log_tactical("Servidor FODA S5 finalizado por el operador.")
 
 if __name__ == "__main__":
+    import multiprocessing
+    multiprocessing.freeze_support()
     print("=====================================================================")
     print("                 FODA S5 - INICIALIZADOR DE SISTEMA                  ")
     print("=====================================================================")
