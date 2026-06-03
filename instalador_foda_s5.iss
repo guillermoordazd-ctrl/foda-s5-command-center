@@ -11,7 +11,7 @@ AppUpdatesURL=https://github.com/beto/FODA
 DefaultDirName={localappdata}\FODA_S5_Command_Center
 DefaultGroupName=FODA S5 Command Center
 DisableProgramGroupPage=yes
-LicenseFiles=
+; LicenseFile=
 ; Icono del instalador
 SetupIconFile=my_foda_s5.ico
 UninstallDisplayIcon={app}\my_foda_s5.ico
